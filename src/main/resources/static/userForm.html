@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<!--用户列表页面-->
+<!--用户列表页面-->
+<!--用户列表页面-->
+
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="txt/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Accounts - Product Admin Template</title>
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+
+</head>
+
+<body id="reportsPage">
+<div class="" id="home">
+
+    <!--头部导航栏-->
+
+    <nav class="navbar navbar-expand-xl">
+        <div class="container h-100">
+            <a class="navbar-brand" href="index.html">
+                <h1 class="tm-site-title mb-0">远程健康监测系统</h1>
+            </a>
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars tm-nav-icon"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto h-100">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" id="data">
+                            <i class="fas fa-chart-line"></i>
+                            实时数据
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="historyData.html" id="historyData">
+                            <i class="far fa-file-alt"></i>
+                            <span>
+                                    历史数据
+                        </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="userForm.html" id="userForm">
+                            <i class="far fa-user"></i>
+                            病员列表
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cog"></i>
+                            <span>
+                                    设置 <i class="fas fa-angle-down"></i>
+                                </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Billing</a>
+                            <a class="dropdown-item" href="#">Customize</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="login_nav">
+                    <li class="nav-item"><a class="nav-link d-block" href="#" id="adminName"></a></li>
+                    <li class="nav-item"><a class="nav-link d-block" href="/admin/logout">注销</a></li>
+                </ul>
+                <ul class="navbar-nav" id="logout_nav">
+                    <li class="nav-item"><a class="nav-link d-block" href="#">游客</a></li>
+                    <li class="nav-item"><a class="nav-link d-block" href="login.html">请登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5">
+        <div class="row tm-content-row">
+            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block tm-block-products tm-block-product-categories">
+                    <div class="tm-product-table-container">
+                        <table class="table table-hover tm-table-small tm-product-table">
+                            <thead>
+                            <tr>
+                                <th scope="col">选项</th>
+                                <th scope="col">患者</th>
+                                <th scope="col">性别</th>
+                                <th scope="col">症状</th>
+                                <th scope="col">入院时间</th>
+                                <th scope="col">查看数据</th>
+                            </tr>
+                            </thead>
+                            <tbody id="userTbody">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- table container -->
+
+                    <button class="btn btn-primary btn-block text-uppercase" id="deletSelectedUser">
+                        删除病员
+                    </button>
+
+                    <button class="btn btn-primary btn-block text-uppercase" id="">
+                        添加病员
+                    </button>
+                </div>
+            </div>
+
+            <!--    表单部分-->
+            <!--    更改信息-->
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">编辑病员信息</h2>
+                        </div>
+                    </div>
+
+                    <div class="row tm-edit-product-row">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+
+
+                            <form id="userInfoForm" action="javascript:;" method="post" class="tm-edit-product-form" >
+                                <input type="hidden" name="action" value="/UserData/saveChange">
+
+                                <div class="form-group mb-3">
+                                    <label for="userName">患者</label>
+                                    <input id="userName" name="userName" type="text" class="form-control validate"
+                                           onfocus="this.blur()" required/>
+                                </div>
+                                <div>
+                                    <label for="id"> </label>
+                                    <input id="id" name="id" type="hidden" class="form-control validate"
+                                           onfocus="this.blur()" required/>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="userDoctorDiagnosis">症状</label>
+                                    <input id="userDoctorDiagnosis" type="text" name="userDoctorDiagnosis"
+                                           class="form-control validate"/>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="userDoctorAdvice">医嘱</label>
+                                    <textarea
+                                            id="userDoctorAdvice"
+                                            name="userDoctorAdvice"
+                                            class="form-control validate"
+                                            rows="5"
+                                            required>
+                                    </textarea>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="bedInfoBedId">病床号</label>
+                                        <input
+                                                id="bedInfoBedId"
+                                                name="bedInfoBedId"
+                                                type="text"
+                                                class="form-control validate"
+                                                required/>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-primary btn-block text-uppercase"
+                                            id="saveChange">保存
+                                    </button>
+                                    <!--<input id="saveChange" type="submit" class="btn btn-primary btn-block text-uppercase" value="保存">-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+        <div class="col-12 font-weight-light">
+            <p class="text-center text-white mb-0 px-4 small">
+                Copyright &copy; <b>2018</b> All rights reserved.
+
+                More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">南昌大学</a> - Collect from
+                <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">南昌大学</a>
+            </p>
+        </div>
+    </footer>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<!-- https://jquery.com/download/ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- https://getbootstrap.com/ -->
+<script>
+    //获取用户列表
+    $.post("/admin/getUserList", {}, function (userList) {
+        // console.log(userList);
+        var userJson = eval('(' + userList + ')');
+        if (userJson == null) {
+            console.log("请登录");
+        }
+        if (userJson != null) {
+            console.log(userJson);
+            var strs;
+            for (var i = 0; i < userJson.length; i++) {
+                var str = '<tr>\n' +
+                    '<th scope="row"><input type="checkbox" id="' + userJson[i].id + '"/></th>\n' +
+                    '<td scope="row"><a herf="#" style="cursor:pointer" class="tm-product-delete-icon" ' + 'onclick="changeUserData(this.id)"' + ' id="' + userJson[i].id + 'U' + '">' + userJson[i].userName + '</a></td>\n' +
+                    '<td><b>' + userJson[i].sex + '</b></td>\n' +
+                    '<td title="医嘱：' + userJson[i].userDoctorAdvice + '"><b>' + userJson[i].userDoctorDiagnosis + '</b></td>\n' +
+                    '<td>' + userJson[i].userSubDateTime + '</td>\n' +
+                    '<td>\n' +
+                    '  <a onclick="changeUser(this.id)" class="tm-product-delete-link" id="' + userJson[i].id + 'N' + '">\n' +
+                    '     <i class="fa fa-chart-line tm-product-delete-icon"></i>\n' +
+                    '  </a>\n' +
+                    '</td>\n' +
+                    '</tr>';
+                strs += str;
+            }
+            $("#userTbody").html(strs);
+        }
+    })
+
+    function changeUser(id) {
+        $.post('/UserData/changeUser', {"id": id}, function () {
+            location.href = "index.html";
+        })
+    }
+
+    function changeUserData(id) {
+        $.post('/UserData/changeUser', {"id": id}, function (user) {
+            var userJson = eval("(" + user + ")");
+            console.log(userJson);
+            $("#userName").val(userJson.userName);
+            $("#id").val(userJson.id);
+            $("#userDoctorDiagnosis").val(userJson.userDoctorDiagnosis);
+            $("#userDoctorAdvice").val(userJson.userDoctorAdvice);
+            $("#bedInfoBedId").val(userJson.bedInfoBedId);
+        })
+    }
+
+    $(function () {
+        //获取管理员姓名
+        $.get("/admin/getAdminName", {}, function (admin) {
+            // 将json字符串转换为json对象
+            var jsonAdmin = eval('(' + admin + ')');
+            if (jsonAdmin == null) {
+                $("#logout_nav").css("display", "");
+                $("#login_nav").css("display", "none");
+                return null;
+            }
+            if (jsonAdmin != null) {
+                $("#logout_nav").css("display", "none");
+                $("#login_nav").css("display", "");
+                $("#adminName").html(jsonAdmin.adminName);
+                return null;
+            }
+
+        })
+        //初始化表单数据
+        $.post('/UserData/onloadUserForm', {}, function (user) {
+            var userJson = eval("(" + user + ")");
+            $("#userName").val(userJson.userName);
+            $("#id").val(userJson.id);
+            $("#userDoctorDiagnosis").val(userJson.userDoctorDiagnosis);
+            $("#userDoctorAdvice").val(userJson.userDoctorAdvice);
+            $("#bedInfoBedId").val(userJson.bedInfoBedId);
+        })
+
+    })
+    $("#saveChange").click(function () {
+        console.log($("#userInfoForm"));
+        $.post('/UserData/saveChange', $("#userInfoForm").serialize(), function (response) {
+            alert(response);
+            setTimeout(location.href = "userForm.html",30000);
+        });
+
+    });
+    $("#deletSelectedUser").click(function () {
+        //得到所有被选中的复选框和id
+        $("input[type = 'checkbox']");
+        var ids = "";
+        for (i = 0; i < $("input[type = 'checkbox']").length; i++) {
+            if ($("input[type = 'checkbox']").get(i).checked) {
+                ids += $("input[type = 'checkbox']").get(i).id + ","
+            }
+        }
+        //弹出对话框确认删除
+        var r = confirm("确定删除这些用户吗？");
+        if (r == true) {
+            $.post('/UserData/deletSelectedUser', {"ids": ids}, function (response) {
+                location.href = "userForm.html";
+                alert("成功删除" + response + "行记录！")
+            })
+        } else {
+            console.log("取消删除");
+        }
+    })
+</script>
+</body>
+</html>

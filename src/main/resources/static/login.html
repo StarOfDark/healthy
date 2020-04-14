@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!--登录页面-->
+<!--登录页面-->
+<!--登录页面-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>登录</title>
+    <!--link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+
+
+</head>
+
+<body>
+
+<div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+        <div class="col-12 mx-auto tm-login-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="tm-block-title mb-4">远程健康监测后台管理系统</h2>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h4 id="errorInfo"></h4>
+                        <form id="loginForm" action="javascript:;" method="post" class="tm-login-form">
+                            <input type="hidden" name="action" value="/admin/login">
+                            <div class="form-group">
+                                <label for="adminName">姓名：</label>
+                                <input
+                                        name="adminName"
+                                        type="text"
+                                        class="form-control "
+                                        id="adminName"
+                                        value=""
+                                        required
+                                />
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="password">密码：</label>
+                                <input
+                                        name="password"
+                                        type="password"
+                                        class="form-control validate"
+                                        id="password"
+                                        value=""
+                                        required
+                                />
+                            </div>
+                            <!--                  <div class="form-group mt-4">-->
+                            <!--<input id="login1" type="button" class="btn btn-primary btn-block text-uppercase" value="登录">-->
+                            <button id="login" type="button" class="btn btn-primary btn-block text-uppercase">登录</button>
+
+                            <button type="button" class="mt-5 btn btn-primary btn-block text-uppercase">
+                                <a href="regist.html">注册</a>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="tm-footer row tm-mt-small">
+    <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">
+            Copyright &copy; <b>2018</b> All rights reserved.
+
+            More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">南昌大学</a> - Collect from <a
+                href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+        </p>
+    </div>
+</footer>
+<script src="js/jquery-3.3.1.min.js"></script>
+<!-- https://jquery.com/download/ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- https://getbootstrap.com/ -->
+<script>
+    //1给登录按钮注册事件
+    //2发送ajax请求，提交表单数据
+    //3发送相应结果集
+    $(function () {
+
+        $("#login").click(function () {
+
+            console.log($("#loginForm"));
+            $.post("/admin/login", $("#loginForm").serialize(), function (response) {
+
+                var data = eval('(' + response + ')');
+                if (data.adminName == $("#adminName").val()) {
+                    alert(data);
+                    //登录成功
+                    location.href = "index.html";
+                    // return false;
+                } else {
+                    //登录失败
+                    //$("#errorInfo").html("用户名和密码错误");
+                    alert("登陆失败");
+                    location.href = "login.html";
+                    // return false;
+                }
+            })
+        });
+    })
+
+</script>
+
+</body>
+</html>

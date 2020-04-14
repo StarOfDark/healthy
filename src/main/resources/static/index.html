@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<!--主页-->
+<!--主页-->
+<!--主页-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>远程健康监测系统</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700"/>
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/highcharts.js"></script>
+
+    <script>
+        $(function () {
+            //获取管理员姓名
+            $.get("/admin/getAdminName", {}, function (admin) {
+                // 将json字符串转换为json对象
+                var jsonAdmin = eval('(' + admin + ')');
+                if (jsonAdmin == null) {
+                    $("#logout_nav").css("display", "");
+                    $("#login_nav").css("display", "none");
+                    $("#welcomeBackDiv").css("display", "none");
+                    return null;
+                }
+                if (jsonAdmin != null) {
+                    $("#logout_nav").css("display", "none");
+                    $("#login_nav").css("display", "");
+                    $("#adminName").html(jsonAdmin.adminName);
+                    $("#welcomeBackDiv").css("display", "");
+                    $("#welcomeBack").html("欢迎回来，"+'<b>'+jsonAdmin.adminName+'</b>');
+                    return null;
+                }
+
+            })
+            //获取用户列表
+            $.post("/admin/getUserList", {}, function (userList) {
+                // console.log(userList);
+                var userJson = eval('(' + userList + ')');
+                if (userJson == null) {
+                    console.log("请登录");
+                }
+                if (userJson != null) {
+                    console.log(userJson);
+                    var strs;
+                    for (var i = 0 ; i < userJson.length ; i++) {
+                    var str = '<tr>\n' +
+                        '<th scope="row"><a herf="#" style="cursor:pointer" class="tm-product-delete-icon" '+ 'onclick="setAtrribute(this.id)"' +' id="'+ userJson[i].id +'">'+ userJson[i].userName +'</a></th>\n' +
+                        '<td>\n' +
+                        //<th scope="row"><a herf="#" style="cursor:pointer" class="tm-product-delete-icon" onclik="setAtrribute(this.id)" id="userJson[i].id">userJson[i].userName</a></th>
+
+                        '<div class="tm-status-circle moving">\n' + '</div>\n' + '<b>在线</b>\n' + '</td>\n' +
+                        '<td><b>'+ userJson[i].email +'</b></td>\n' +
+                        '<td><b>'+ userJson[i].sex +'</b></td>\n' +
+                        '<td><b>'+ userJson[i].age +'</b></td>\n' +
+                        '<td><b>'+ userJson[i].bedInfoBedId +'</b></td>\n' +
+                        '<td title="医嘱：'+ userJson[i].userDoctorAdvice +'"><b>'+ userJson[i].userDoctorDiagnosis +'</b></td>\n' +
+                        '<td class="text-center">\n' +
+                        '<a class="tm-product-delete-link" onclick="editUSer(this.id)" title="编辑用户信息" id="'+ userJson[i].id +'E'+'"><i\n' +
+                        'class="fa fa-paint-brush tm-product-delete-icon"></i></a>\n' +
+                        '<a class="tm-product-delete-link" onclick="historyData(this.id)" title="查看历史数据" id="'+ userJson[i].id +'H'+'"><i\n' +
+                        'class="fa fa-file-alt tm-product-delete-icon"></i></a>\n' +
+                        '</td>\n' +
+                        '</tr>';
+                    strs += str;
+                    }
+                    $("#userTbody").html(strs);
+                    //给用户名注册点击事件
+                    console.log($("tbody>tr>th>a"));
+                }
+            })
+        })
+    </script>
+
+</head>
+
+<body id="reportsPage">
+
+<div class="" id="home">
+
+    <!--头部导航栏-->
+
+    <nav class="navbar navbar-expand-xl">
+        <div class="container h-100">
+            <a class="navbar-brand" href="index.html">
+                <h1 class="tm-site-title mb-0">远程健康监测系统</h1>
+            </a>
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars tm-nav-icon"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto h-100">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html" id="data">
+                            <i class="fas fa-chart-line"></i>
+                            实时数据
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="historyData.html" id="historyData">
+                            <i class="far fa-file-alt"></i>
+                            <span>
+                                    历史数据
+                        </span>
+                        </a>
+                    </li>
+                    <!--                <li class="nav-item">-->
+                    <!--                    <a class="nav-link" href="historyData.html" id="products">-->
+                    <!--                        <i class="fas fa-shopping-cart"></i>-->
+                    <!--                        产品说明-->
+                    <!--                    </a>-->
+                    <!--                </li>-->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="userForm.html" id="userForm">
+                            <i class="far fa-user"></i>
+                            病员列表
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cog"></i>
+                            <span>
+                                    设置 <i class="fas fa-angle-down"></i>
+                                </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Billing</a>
+                            <a class="dropdown-item" href="#">Customize</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="login_nav">
+                    <li class="nav-item"><a class="nav-link d-block" href="#" id="adminName"></a></li>
+                    <li class="nav-item"><a class="nav-link d-block" href="/admin/logout">注销</a></li>
+                </ul>
+                <ul class="navbar-nav" id="logout_nav">
+                    <li class="nav-item"><a class="nav-link d-block" href="#">游客</a></li>
+                    <li class="nav-item"><a class="nav-link d-block" href="login.html">请登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div  id="welcomeBackDiv" class="row">
+            <div class="col">
+                <p id="welcomeBack" class="text-white mt-5 mb-5">欢迎回来, <b>张三</b></p>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row tm-content-row">
+
+            <!--ECG显示板块-->
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block">
+                    <h2 class="tm-block-title">ECG</h2>
+                    <!-- <canvas id="container"></canvas> -->
+                    <div id="container"></div>
+
+                </div>
+            </div>
+
+
+            <!--其他数据显示板块-->
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block">
+                    <h2 class="tm-block-title">其他数据</h2>
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <div class="col-12 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                    <h2 class="tm-block-title">病员列表</h2>
+                    <table class="table text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">用户名</th>
+                            <th scope="col">状态</th>
+                            <th scope="col">邮箱</th>
+                            <th scope="col">性别</th>
+                            <th scope="col">年龄</th>
+                            <th scope="col">床号</th>
+                            <th scope="col">症状</th>
+                            <th scope="col">编辑&nbsp;/&nbsp;历史数据</th>
+                        </tr>
+                        </thead>
+                        <tbody id="userTbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+        <div class="col-12 font-weight-light">
+            <p class="text-center text-white mb-0 px-4 small">
+                Copyright &copy; <b>2018</b> Template Mo All rights reserved.
+
+                More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">南昌大学</a> - Collect from
+                <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">南昌大学</a>
+            </p>
+        </div>
+    </footer>
+</div>
+
+
+
+</body>
+<script src="js/nowData.js"></script>
+</html>

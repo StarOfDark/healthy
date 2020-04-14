@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>注册</title>
+    <!--<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"/>-->
+
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+
+
+</head>
+
+<body>
+<div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+        <div class="col-12 mx-auto tm-login-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="tm-block-title mb-4">医生注册</h2>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h4 id="errorInfo"></h4>
+                        <form id="registForm" action="" method="post" class="tm-login-form">
+                            <input type="hidden" name="action" value="/admin/regist">
+                            <div class="form-group">
+                                <label for="adminName">姓名：</label>
+                                <input
+                                        name="adminName"
+                                        type="text"
+                                        class="form-control "
+                                        id="adminName"
+                                        value=""
+                                        required
+                                />
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="password">密码：</label>
+                                <input
+                                        name="adminPwd"
+                                        type="password"
+                                        class="form-control validate"
+                                        id="password"
+                                        value=""
+                                        required
+                                />
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="password">请再次输入密码：</label>
+                                <input
+                                        name="adminPwd"
+                                        type="password"
+                                        class="form-control validate"
+                                        id="repeatPassword"
+                                        value=""
+                                        required
+                                />
+                                <div class="form-group mt-3">
+                                    <label for="age">年龄：</label>
+                                    <input
+                                            name="adminAge"
+                                            type="text"
+                                            class="form-control validate"
+                                            id="age"
+                                            value=""
+                                            required
+                                    />
+                                    <div class="form-group mt-3">
+                                        <label style="left: auto"> <input
+                                                name="adminGender"
+                                                type="radio"
+                                                class="form-control validate"
+
+                                                value=""
+                                                required
+                                        />男</label>
+                                        <label style="right: auto"> <input
+                                                name="adminGender"
+                                                type="radio"
+                                                class="form-control validate"
+                                                value=""
+                                                required
+                                        />女</label>
+
+                                    </div>
+                                    <!--                  <div class="form-group mt-4">-->
+                                    <!--<input id="regist" type="submit" class="btn btn-primary btn-block text-uppercase" value="注册" />-->
+                                    <button id="regist" type="button" class="btn btn-primary btn-block text-uppercase">
+                                        注册
+                                    </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<!-- https://jquery.com/download/ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- https://getbootstrap.com/ -->
+<script>
+    //1给登录按钮注册事件
+    //2发送ajax请求，提交表单数据
+    //3发送相应结果集
+    $(function () {
+        $("#regist").click(function () {
+            $.post("/admin/regist", $("#registForm").serialize(), function (response) {
+
+                console.log(response);
+                setTimeout(alert(response), 30000);
+                if (response == "注册成功") {
+
+                    //登录成功
+                    location.href = "login.html";
+                } else {
+                    //登录失败
+                    //$("#errorInfo").html(data.errorInfo);
+                    setTimeout(location.href = "regist.html", 30000);
+                }
+            })
+        });
+    })
+</script>
+
+</body>
+</html>

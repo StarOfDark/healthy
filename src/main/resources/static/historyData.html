@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<!--历史数据页面-->
+<!--历史数据页面-->
+<!--历史数据页面-->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Product Page - Admin HTML Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/highcharts.js"></script>
+
+    <script>
+      //点击用户名事件函数
+      function changeUser(id) {
+        $.post('/UserData/changeUser',{"id":id},function () {
+          location.href = "historyData.html";
+        })
+      }
+      //实时数据按钮
+      function nowData(id) {
+        $.post('/UserData/changeUser',{"id":id},function () {
+          location.href = "index.html";
+        })
+      }
+
+    </script>
+
+  </head>
+
+  <body id="reportsPage">
+
+  <!--头部导航栏-->
+
+  <nav class="navbar navbar-expand-xl">
+    <div class="container h-100">
+      <a class="navbar-brand" href="index.html">
+        <h1 class="tm-site-title mb-0">远程健康监测系统</h1>
+      </a>
+      <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars tm-nav-icon"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto h-100">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" id="data">
+              <i class="fas fa-chart-line"></i>
+              实时数据
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle active" href="historyData.html" id="historyData">
+              <i class="far fa-file-alt"></i>
+              <span>
+                历史数据
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="userForm.html" id="userForm">
+              <i class="far fa-user"></i>
+              用户列表
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-cog"></i>
+              <span>
+                                    设置 <i class="fas fa-angle-down"></i>
+                                </span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Billing</a>
+              <a class="dropdown-item" href="#">Customize</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav" id="login_nav">
+          <li class="nav-item"><a class="nav-link d-block" href="#" id="adminName"></a></li>
+          <li class="nav-item"><a class="nav-link d-block" href="/admin/logout">注销</a></li>
+        </ul>
+        <ul class="navbar-nav" id="logout_nav">
+          <li class="nav-item"><a class="nav-link d-block" href="#">游客</a></li>
+          <li class="nav-item"><a class="nav-link d-block" href="login.html">请登录</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container mt-5">
+      <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                <h2 class="tm-block-title">ECG</h2>
+                <!-- <canvas id="container"></canvas> -->
+                <div id="container" style="min-width:400px;height:400px;position: relative"></div>
+                <script src="js/historyData.js"></script>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+          <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+            <h2 class="tm-block-title">用户列表</h2>
+            <div class="tm-product-table-container">
+              <table class="table tm-table-small tm-product-table">
+                <thead>
+                <tr>
+                  <th scope="col">用户名</th>
+                  <th scope="col">实时数据</th>
+                </tr>
+                </thead>
+                <tbody id="userTbody" class="">
+
+                </tbody>
+              </table>
+            </div>
+            <!-- table container -->
+            <button class="btn btn-primary btn-block text-uppercase mb-3">
+              编辑用户
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+      <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">
+          Copyright &copy; <b>2018</b> All rights reserved. 
+          
+          More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">南昌大学</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank"></a>
+        </p>
+      </div>
+    </footer>
+    <script src="js/historyData.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script>
+      //页面加载函数
+      $(function() {
+        //获取管理员姓名
+        $.get("/admin/getAdminName", {}, function (admin) {
+          // 将json字符串转换为json对象
+          var jsonAdmin = eval('(' + admin + ')');
+          if (jsonAdmin == null) {
+            $("#logout_nav").css("display", "");
+            $("#login_nav").css("display", "none");
+            return null;
+          }
+          if (jsonAdmin != null) {
+            $("#logout_nav").css("display", "none");
+            $("#login_nav").css("display", "");
+            $("#adminName").html(jsonAdmin.adminName);
+            return null;
+          }
+
+        })
+          //获取用户列表
+        $.post("/admin/getUserList", {}, function (userList) {
+              // console.log(userList);
+              var userJson = eval('(' + userList + ')');
+              if (userJson == null) {
+                  console.log("请登录");
+              }
+              if (userJson != null) {
+                  console.log(userJson);
+                  var strs;
+                  for (var i = 0 ; i < userJson.length ; i++) {
+                      var str = '<tr>\n' +
+                          '                    <th scope="row"><a herf="#" style="cursor:pointer" class="tm-product-delete-icon" '+ 'onclick="changeUser(this.id)"' +' id="'+ userJson[i].id +'N'+'">'+ userJson[i].userName +'</a></th>\n' +
+                          '                    <td class="text-center">\n' +
+                          '                      <a onclick="nowData(this.id)" id="'+ userJson[i].id +'N'+'" class="tm-product-delete-link">\n' +
+                          '                        <i class="fa fa-chart-line tm-product-delete-icon"></i>\n' +
+                          '                      </a>\n' +
+                          '                    </td>\n' +
+                          '                  </tr>';
+                      strs += str;
+                  }
+                  $("#userTbody").html(strs);
+              }
+          })
+
+        $(".tm-product-name").on("click", function() {
+          window.location.href = "edit-product.html";
+        });
+      });
+    </script>
+  </body>
+</html>
